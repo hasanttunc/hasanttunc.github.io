@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hasan Tunç Günel – Portfolio</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --sans: 'Segoe UI', Arial, sans-serif; --black: #111; --muted: #555; --light: #f5f5f2; --border: #e0e0d8; --accent: #1a1a1a; }
+  body { font-family: var(--sans); color: var(--black); background: #fff; font-size: 14px; line-height: 1.6; }
+
+  /* Nav */
+  nav { border-bottom: 1px solid var(--border); padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 0; background: #fff; z-index: 10; }
+  .logo { font-size: 15px; font-weight: 600; letter-spacing: 0.3px; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 13px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--black); }
+  .lang-toggle { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .lang-toggle button { background: none; border: none; padding: 4px 10px; font-size: 12px; cursor: pointer; color: var(--muted); font-family: var(--sans); }
+  .lang-toggle button.active { background: var(--black); color: #fff; }
+
+  /* Hero */
+  .hero { padding: 72px 5% 56px; border-bottom: 1px solid var(--border); }
+  .hero-inner { max-width: 680px; }
+  .hero h1 { font-size: 32px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .hero .role { font-size: 15px; color: var(--muted); margin-bottom: 20px; }
+  .hero p { font-size: 14px; color: #333; line-height: 1.8; max-width: 560px; margin-bottom: 24px; }
+  .hero-links { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 8px 18px; border: 1px solid var(--black); border-radius: 3px; font-size: 13px; text-decoration: none; color: var(--black); transition: background 0.2s, color 0.2s; }
+  .btn:hover { background: var(--black); color: #fff; }
+  .btn.filled { background: var(--black); color: #fff; }
+  .btn.filled:hover { background: #333; }
+
+  /* Section */
+  section { padding: 52px 5%; border-bottom: 1px solid var(--border); }
+  .section-label { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: #aaa; margin-bottom: 28px; }
+
+  /* Projects grid */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .project-card { background: #fff; padding: 24px; }
+  .project-card:hover { background: var(--light); }
+  .project-tag { display: inline-block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); border-radius: 2px; padding: 2px 7px; margin-bottom: 12px; }
+  .project-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .project-card p { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+  .project-meta { font-size: 11px; color: #aaa; display: flex; gap: 12px; flex-wrap: wrap; }
+  .project-link { font-size: 12px; color: var(--black); text-decoration: underline; display: inline-block; margin-top: 10px; }
+
+  /* Skills */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 24px; }
+  .skill-group h4 { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #aaa; margin-bottom: 10px; }
+  .skill-group ul { list-style: none; }
+  .skill-group ul li { font-size: 13px; color: #333; padding: 4px 0; border-bottom: 1px solid var(--border); }
+
+  /* Contact */
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .contact-item { background: #fff; padding: 20px; }
+  .contact-item:hover { background: var(--light); }
+  .contact-item .label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: #aaa; margin-bottom: 6px; }
+  .contact-item a, .contact-item p { font-size: 13px; color: var(--black); text-decoration: none; word-break: break-all; }
+  .contact-item a:hover { text-decoration: underline; }
+
+  footer { padding: 28px 5%; text-align: center; font-size: 12px; color: #bbb; }
+
+  /* Lang toggle logic */
+  [data-lang="tr"] { display: none; }
+  body.tr [data-lang="tr"] { display: block; }
+  body.tr [data-lang="en"] { display: none; }
+  span[data-lang] { display: inline; }
+  body.tr span[data-lang="en"] { display: none; }
+  body.tr span[data-lang="tr"] { display: inline; }
+</style>
+</head>
+<body id="body">
+
+<!-- Nav -->
+<nav>
+  <div class="logo">HTG</div>
+  <div class="nav-links">
+    <a href="#projects" data-lang="en">Projects</a>
+    <a href="#projects" data-lang="tr">Projeler</a>
+    <a href="#skills" data-lang="en">Skills</a>
+    <a href="#skills" data-lang="tr">Beceriler</a>
+    <a href="#contact" data-lang="en">Contact</a>
+    <a href="#contact" data-lang="tr">İletişim</a>
+  </div>
+  <div class="lang-toggle">
+    <button class="active" onclick="setLang('en')">EN</button>
+    <button onclick="setLang('tr')">TR</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-inner">
+    <h1>Hasan Tunç Günel</h1>
+    <p class="role">
+      <span data-lang="en">English–Turkish Translator · Localizer · Subtitler</span>
+      <span data-lang="tr">İngilizce–Türkçe Çevirmen · Yerelleştirme Uzmanı · Altyazı Çevirmeni</span>
+    </p>
+    <p data-lang="en">Final-year Translation & Interpreting student at Ege University with hands-on experience in localization, subtitling, and AI-assisted translation workflows. Passionate about language accessibility and making content reach wider audiences.</p>
+    <p data-lang="tr">Ege Üniversitesi Mütercim-Tercümanlık son sınıf öğrencisi. Yerelleştirme, altyazı çevirisi ve yapay zeka destekli çeviri iş akışları konusunda deneyimliyim. Dil erişilebilirliği ve içeriklerin geniş kitlelere ulaşması konusunda tutkuluyum.</p>
+    <div class="hero-links">
+      <a href="https://www.linkedin.com/in/hasan-tunç-günel-6aa0bb37a" class="btn filled" target="_blank">LinkedIn</a>
+      <a href="mailto:hasantuncg@gmail.com" class="btn">
+        <span data-lang="en">Get in touch</span>
+        <span data-lang="tr">İletişime geç</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Projects -->
+<section id="projects">
+  <div class="section-label">
+    <span data-lang="en">Portfolio & Projects</span>
+    <span data-lang="tr">Portfolyo & Projeler</span>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <span class="project-tag">TED · Subtitling</span>
+      <h3 data-lang="en">TED Open Translation Project</h3>
+      <h3 data-lang="tr">TED Açık Çeviri Projesi</h3>
+      <p data-lang="en">Translated and timed subtitles for 3 TED Talks from English to Turkish, applying professional character-per-second and line-break standards.</p>
+      <p data-lang="tr">3 TED Konuşması için İngilizce'den Türkçe'ye altyazı çevirisi ve zamanlaması yapıldı. Profesyonel karakter/saniye ve satır sonu standartları uygulandı.</p>
+      <div class="project-meta">
+        <span>English → Turkish</span>
+        <span>Subtitle Editor</span>
+        <span>2024 – Present</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-tag">Drama · Subtitling</span>
+      <h3>Kurtlar Vadisi</h3>
+      <p data-lang="en">Practice subtitling project for the acclaimed Turkish action drama. Unofficial demo subtitles created to demonstrate professional timing and linguistic accuracy.</p>
+      <p data-lang="tr">Ünlü Türk aksiyon dizisi için altyazı pratiği projesi. Profesyonel zamanlama ve dilbilimsel doğruluğu göstermek amacıyla oluşturulmuş demo altyazılar.</p>
+      <div class="project-meta">
+        <span>Turkish → English</span>
+        <span>Aegisub</span>
+      </div>
+      <a class="project-link" href="https://www.linkedin.com/posts/hasan-tun%C3%A7-g%C3%BCnel-6aa0bb37a_kendi-alt-yaz%C4%B1-%C3%A7al%C4%B1%C5%9Fmalar%C4%B1mdan-bir-tanesi-ugcPost-7378882742169640960-G8F1" target="_blank">
+        <span data-lang="en">View on LinkedIn →</span>
+        <span data-lang="tr">LinkedIn'de Gör →</span>
+      </a>
+    </div>
+
+    <div class="project-card">
+      <span class="project-tag">Historical Drama · Subtitling</span>
+      <h3>Muhteşem Yüzyıl</h3>
+      <p data-lang="en">Practice subtitles for the internationally acclaimed Ottoman historical drama. Demonstrates handling of formal, period-specific and culturally nuanced language.</p>
+      <p data-lang="tr">Uluslararası beğeni toplayan Osmanlı tarih dizisi için altyazı pratiği. Resmi, döneme özgü ve kültürel açıdan nüanslı dilin aktarımını göstermektedir.</p>
+      <div class="project-meta">
+        <span>Turkish → English</span>
+        <span>Aegisub</span>
+        <span data-lang="en">Available on request</span>
+        <span data-lang="tr">Talep üzerine mevcut</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-tag">War Drama · Subtitling</span>
+      <h3>Vatanım Sensin</h3>
+      <p data-lang="en">Practice subtitles for this emotional war drama set during the Turkish War of Independence. Demonstrates adaptation of dramatic, emotionally charged dialogue.</p>
+      <p data-lang="tr">Türk Kurtuluş Savaşı döneminde geçen duygusal savaş dizisi için altyazı pratiği. Dramatik ve duygusal diyalogların aktarımını göstermektedir.</p>
+      <div class="project-meta">
+        <span>Turkish → English</span>
+        <span>Aegisub</span>
+        <span data-lang="en">Available on request</span>
+        <span data-lang="tr">Talep üzerine mevcut</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-tag">Romance · Subtitling</span>
+      <h3>Kara Sevda</h3>
+      <p data-lang="en">Practice subtitles for the international Emmy-nominated romantic drama. Demonstrates translation of lyrical, emotionally expressive Turkish dialogue.</p>
+      <p data-lang="tr">Uluslararası Emmy adayı romantik dizi için altyazı pratiği. Lirik ve duygusal Türkçe diyalogların çevirisini göstermektedir.</p>
+      <div class="project-meta">
+        <span>Turkish → English</span>
+        <span>Aegisub</span>
+        <span data-lang="en">Available on request</span>
+        <span data-lang="tr">Talep üzerine mevcut</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-tag">Literary · Subtitling</span>
+      <h3>Aşk-ı Memnu</h3>
+      <p data-lang="en">Practice subtitles based on Halit Ziya Uşaklıgil's literary classic. Demonstrates adaptation of refined, literary Turkish into natural English.</p>
+      <p data-lang="tr">Halit Ziya Uşaklıgil'in edebi klasiğine dayanan altyazı pratiği. Rafine edebi Türkçenin doğal İngilizceye aktarımını göstermektedir.</p>
+      <div class="project-meta">
+        <span>Turkish → English</span>
+        <span>Aegisub</span>
+        <span data-lang="en">Available on request</span>
+        <span data-lang="tr">Talep üzerine mevcut</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="project-tag">Competition · Localization</span>
+      <h3 data-lang="en">TTC Wetranslate Translation Challenge</h3>
+      <h3 data-lang="tr">TTC Wetranslate Çeviri Yarışması</h3>
+      <p data-lang="en">Competed in a professional translation challenge, working in a team on real-world localization projects and industry workflows.</p>
+      <p data-lang="tr">Profesyonel çeviri yarışmasına katılım. Ekip ortamında gerçek dünya yerelleştirme projeleri ve sektör iş akışları üzerine çalışıldı.</p>
+      <div class="project-meta">
+        <span>English → Turkish</span>
+        <span>Apr – May 2025</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="section-label">
+    <span data-lang="en">Skills & Tools</span>
+    <span data-lang="tr">Beceriler & Araçlar</span>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <h4 data-lang="en">Translation & Localization</h4>
+      <h4 data-lang="tr">Çeviri & Yerelleştirme</h4>
+      <ul>
+        <li>English–Turkish Translation</li>
+        <li>Localization (L10N)</li>
+        <li>MTPE</li>
+        <li>Terminology Management</li>
+        <li>Translation Memory</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h4 data-lang="en">Subtitling</h4>
+      <h4 data-lang="tr">Altyazı</h4>
+      <ul>
+        <li>Aegisub</li>
+        <li>Subtitle Editor</li>
+        <li>.srt / .vtt formats</li>
+        <li>CPS & line-break standards</li>
+        <li>Transcription</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h4>CAT Tools</h4>
+      <ul>
+        <li>SDL Trados Studio</li>
+        <li>MemoQ</li>
+        <li>OmegaT</li>
+        <li>.xliff / .po formats</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h4 data-lang="en">AI & Technology</h4>
+      <h4 data-lang="tr">Yapay Zeka & Teknoloji</h4>
+      <ul>
+        <li>AI-Assisted Translation</li>
+        <li>Prompt Engineering</li>
+        <li>DeepL (developing)</li>
+        <li>Zotero</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="section-label">
+    <span data-lang="en">Contact</span>
+    <span data-lang="tr">İletişim</span>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <div class="label">Email</div>
+      <a href="mailto:hasantuncg@gmail.com">hasantuncg@gmail.com</a>
+    </div>
+    <div class="contact-item">
+      <div class="label">Phone</div>
+      <p>(+90) 533 746 5835</p>
+    </div>
+    <div class="contact-item">
+      <div class="label">LinkedIn</div>
+      <a href="https://www.linkedin.com/in/hasan-tunç-günel-6aa0bb37a" target="_blank">linkedin.com/in/hasan-tunç-günel</a>
+    </div>
+    <div class="contact-item">
+      <div class="label">
+        <span data-lang="en">Location</span>
+        <span data-lang="tr">Konum</span>
+      </div>
+      <p>Bornova, İzmir, Turkey</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Hasan Tunç Günel · <span data-lang="en">Translator · Localizer · Subtitler</span><span data-lang="tr">Çevirmen · Yerelleştirme Uzmanı · Altyazı Çevirmeni</span></p>
+</footer>
+
+<script>
+  function setLang(l) {
+    document.getElementById('body').className = l === 'tr' ? 'tr' : '';
+    document.querySelectorAll('.lang-toggle button').forEach((b, i) => {
+      b.classList.toggle('active', (l === 'en' && i === 0) || (l === 'tr' && i === 1));
+    });
+  }
+</script>
+
+</body>
+</html>
