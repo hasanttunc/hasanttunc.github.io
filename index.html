@@ -62,12 +62,9 @@
   footer { padding: 28px 5%; text-align: center; font-size: 12px; color: #bbb; }
 
   /* Lang toggle logic */
-  [data-lang="tr"] { display: none; }
-  body.tr [data-lang="tr"] { display: block; }
-  body.tr [data-lang="en"] { display: none; }
-  span[data-lang] { display: inline; }
-  body.tr span[data-lang="en"] { display: none; }
-  body.tr span[data-lang="tr"] { display: inline; }
+  [data-lang="tr"] { display: none !important; }
+  body.tr [data-lang="tr"] { display: revert !important; }
+  body.tr [data-lang="en"] { display: none !important; }
 </style>
 </head>
 <body id="body">
@@ -101,7 +98,7 @@
     <p data-lang="tr">Ege Üniversitesi Mütercim-Tercümanlık son sınıf öğrencisi. Yerelleştirme, altyazı çevirisi ve yapay zeka destekli çeviri iş akışları konusunda deneyimliyim. Dil erişilebilirliği ve içeriklerin geniş kitlelere ulaşması konusunda tutkuluyum.</p>
     <div class="hero-links">
       <a href="https://www.linkedin.com/in/hasan-tunç-günel-6aa0bb37a" class="btn filled" target="_blank">LinkedIn</a>
-      <a href="mailto:hasantuncg@gmail.com" class="btn">
+      <a href="#contact" class="btn">
         <span data-lang="en">Get in touch</span>
         <span data-lang="tr">İletişime geç</span>
       </a>
